@@ -35,8 +35,6 @@ public class Location {
         return imagePath;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
+
 }
 
