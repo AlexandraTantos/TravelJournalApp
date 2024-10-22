@@ -1,19 +1,39 @@
 package model;
 
 public class JournalEntry {
-    private Location location;
-    private String notes;
+    private int id;
+    private String title;
+    private String content;
 
-    public JournalEntry(Location location, String notes) {
-        this.location = location;
-        this.notes = notes;
+    public JournalEntry(int id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
     }
 
-    public Location getLocation() {
-        return location;
+    public int getId() {
+        return id;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    @Override
+    public String toString() {
+        return "JournalEntry{" + "id=" + id + ", title='" + title + '\'' + ", content='" + content + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JournalEntry that = (JournalEntry) o;
+        return id == that.id && title.equals(that.title) && content.equals(that.content);
     }
 }
+
