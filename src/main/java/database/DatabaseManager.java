@@ -1,57 +1,36 @@
 package database;
 
-import model.Location;
-import model.JournalEntry;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import database.DatabaseConnection;
 
 public class DatabaseManager {
-    private Connection connection;
+    private static DatabaseManager instance;
+    private DatabaseConnection connection;
 
-    public DatabaseManager() {
-        connect();
+    private DatabaseManager() {
+        connection = new DatabaseConnection();
     }
 
-    private void connect() {
-        try {
-            connection = DriverManager.getConnection("jdbc:sqlite:travel_journal.db");
-            String createLocationsTable = "CREATE TABLE IF NOT EXISTS locations ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "name TEXT NOT NULL,"
-                    + "country TEXT NOT NULL,"
-                    + "dateVisited TEXT,"
-                    + "description TEXT,"
-                    + "imagePath TEXT)";
-            connection.createStatement().execute(createLocationsTable);
-
-            String createEntriesTable = "CREATE TABLE IF NOT EXISTS journal_entries ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "locationId INTEGER,"
-                    + "notes TEXT,"
-                    + "FOREIGN KEY(locationId) REFERENCES locations(id))";
-            connection.createStatement().execute(createEntriesTable);
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static DatabaseManager getInstance() {
+        if (instance == null) {
+            instance = new DatabaseManager();
         }
+        return instance;
     }
 
-    public void addLocation(Location location) {
-        String sql = "INSERT INTO locations(name, country, dateVisited, description) VALUES(?,?,?,?)";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, location.getName());
-            pstmt.setString(2, location.getCountry());
-            pstmt.setString(3, location.getDateVisited());
-            pstmt.setString(4, location.getDescription());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public DatabaseConnection getConnection() {
+        return connection;
     }
 
-    public void addJournalEntry(JournalEntry entry) {
-        String sql = "INSERT INTO journal_entries(locationId, notes) VALUES(?,?)";
-        // Add logic to get the location ID based on the location object
+    @Override
+    public String toString() {
+        return "DatabaseManager{" + "connection=" + connection + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DatabaseManager that = (DatabaseManager) o;
+        return connection.equals(that.connection);
     }
 }
