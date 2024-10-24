@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="traveljournal.RegisterController" stylesheets="@../styles/register.css" fx:id="container" alignment="CENTER">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.RegisterController" stylesheets="@../styles/register.css" fx:id="container" alignment="CENTER">
         <Label text="Create a new account" styleClass="title"/>
         <TextField fx:id="usernameField" promptText="Username" styleClass="input-field"/>
         <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field"/>

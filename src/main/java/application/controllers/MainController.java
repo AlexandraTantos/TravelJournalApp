@@ -1,4 +1,4 @@
-package traveljournal;
+package application.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

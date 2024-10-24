@@ -1,6 +1,6 @@
-package repository;
+package repositories;
 
-import model.User;
+import models.User;
 import database.DatabaseConnection;
 
 import java.sql.*;

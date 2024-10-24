@@ -1,6 +1,6 @@
-package model;
+package models;
 
-import exceptions.EntryNotFoundException;
+import models.exceptions.EntryNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package traveljournal;
+package application.controllers;
 
 public class JournalController {
 

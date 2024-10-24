@@ -12,6 +12,7 @@ module com.cityguideapp.traveljournal {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
-    opens traveljournal to javafx.fxml;
-    exports traveljournal;
+    opens application.controllers to javafx.fxml;
+    exports application;
+    exports application.controllers;
 }

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="traveljournal.MainController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.MainController">
     <Label text="Welcome to the Travel Journal" />
     <Button fx:id="addEntryButton" text="Create New Entry" layoutX="100" layoutY="60" />
     <Button fx:id="viewEntriesButton" text="View Entries" layoutX="100" layoutY="100" />

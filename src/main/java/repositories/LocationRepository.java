@@ -1,7 +1,7 @@
-package repository;
+package repositories;
 
-import exceptions.InvalidLocationException;
-import model.Location;
+import models.exceptions.InvalidLocationException;
+import models.Location;
 import java.sql.*;
 
 public class LocationRepository {

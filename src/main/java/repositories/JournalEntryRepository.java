@@ -1,7 +1,7 @@
-package repository;
+package repositories;
 
-import model.JournalEntry;
-import model.Location;
+import models.JournalEntry;
+import models.Location;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

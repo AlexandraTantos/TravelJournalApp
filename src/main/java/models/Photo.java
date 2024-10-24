@@ -1,4 +1,4 @@
-package model;
+package models;
 
 public class Photo extends MediaContent {
     private String resolution;

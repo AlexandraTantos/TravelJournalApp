@@ -1,13 +1,13 @@
-package traveljournal;
+package application.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import repository.UserRepository;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import repositories.UserRepository;
 
 public class RegisterController {
 
