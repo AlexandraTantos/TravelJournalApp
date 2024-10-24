@@ -4,13 +4,12 @@ public class JournalEntry {
     private int id;
     private String title;
     private String content;
-    private Location location; // Assuming this is part of the entry
+    private Location location;
     private boolean isPublic;
     private double cost;
     private String imagePath;
-    private int userId; // Add userId field
+    private int userId;
 
-    // Updated constructor to include userId
     public JournalEntry(int id, String title, String content, Location location, boolean isPublic, double cost, String imagePath, int userId) {
         this.id = id;
         this.title = title;
@@ -19,10 +18,10 @@ public class JournalEntry {
         this.isPublic = isPublic;
         this.cost = cost;
         this.imagePath = imagePath;
-        this.userId = userId; // Initialize userId
+        this.userId = userId;
     }
 
-    // Getters and Setters
+
     public int getId() {
         return id;
     }
@@ -69,7 +68,7 @@ public class JournalEntry {
                 ", isPublic=" + isPublic +
                 ", cost=" + cost +
                 ", imagePath='" + imagePath + '\'' +
-                ", userId=" + userId + // Include userId in toString
+                ", userId=" + userId +
                 '}';
     }
 
@@ -85,6 +84,6 @@ public class JournalEntry {
                 content.equals(that.content) &&
                 location.equals(that.location) &&
                 imagePath.equals(that.imagePath) &&
-                userId == that.userId; // Include userId in equals
+                userId == that.userId;
     }
 }
