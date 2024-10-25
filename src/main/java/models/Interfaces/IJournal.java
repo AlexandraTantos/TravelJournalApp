@@ -1,9 +1,8 @@
-package Interfaces;
+package models.Interfaces;
 
 import models.JournalEntry;
 import models.exceptions.EntryNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IJournal {

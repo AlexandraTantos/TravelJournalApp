@@ -1,6 +1,6 @@
 package models;
 
-import Interfaces.IJournal;
+import models.Interfaces.IJournal;
 import models.exceptions.EntryNotFoundException;
 
 import java.util.ArrayList;

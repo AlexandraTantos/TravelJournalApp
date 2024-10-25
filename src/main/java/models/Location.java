@@ -1,6 +1,6 @@
 package models;
 
-import Interfaces.ILocation;
+import models.Interfaces.ILocation;
 
 import java.util.Objects;
 

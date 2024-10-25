@@ -1,8 +1,6 @@
-package Interfaces;
+package models.Interfaces;
 
-import models.JournalEntry;
 import models.Location;
-import models.exceptions.EntryNotFoundException;
 
 public interface IJournalEntry {
     public int getId();

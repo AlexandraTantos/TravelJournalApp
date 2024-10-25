@@ -1,6 +1,6 @@
 package models;
 
-import Interfaces.IJournalEntry;
+import models.Interfaces.IJournalEntry;
 
 public class JournalEntry implements IJournalEntry {
     private int id;

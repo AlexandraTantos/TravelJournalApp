@@ -1,4 +1,4 @@
-package Interfaces;
+package models.Interfaces;
 
 public interface ILocation {
 

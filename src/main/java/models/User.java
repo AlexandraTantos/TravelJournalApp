@@ -1,6 +1,6 @@
 package models;
 
-import Interfaces.IUser;
+import models.Interfaces.IUser;
 
 import java.util.Objects;
 
