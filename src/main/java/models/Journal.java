@@ -1,11 +1,12 @@
 package models;
 
+import Interfaces.IJournal;
 import models.exceptions.EntryNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Journal {
+public class Journal implements IJournal {
     private List<JournalEntry> entries;
 
     public Journal() {

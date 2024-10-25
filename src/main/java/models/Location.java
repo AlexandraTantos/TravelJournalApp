@@ -1,8 +1,10 @@
 package models;
 
+import Interfaces.ILocation;
+
 import java.util.Objects;
 
-public class Location {
+public class Location implements ILocation {
     private int id;
     private String country;
     private String city;

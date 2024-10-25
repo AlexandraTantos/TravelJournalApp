@@ -1,8 +1,10 @@
 package models;
 
+import Interfaces.IUser;
+
 import java.util.Objects;
 
-public class User {
+public class User implements IUser {
     private String username;
     private String password;
 
@@ -15,6 +17,7 @@ public class User {
         this.username = username;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }

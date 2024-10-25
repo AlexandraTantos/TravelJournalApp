@@ -1,6 +1,8 @@
 package models;
 
-public class JournalEntry {
+import Interfaces.IJournalEntry;
+
+public class JournalEntry implements IJournalEntry {
     private int id;
     private String title;
     private String content;

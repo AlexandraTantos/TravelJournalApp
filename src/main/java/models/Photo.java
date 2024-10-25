@@ -1,6 +1,6 @@
 package models;
 
-public class Photo extends MediaContent {
+public class Photo extends MediaContent  {
     private String resolution;
 
     public Photo(String title, String description, String resolution) {
@@ -8,7 +8,7 @@ public class Photo extends MediaContent {
         this.resolution = resolution;
     }
 
-    @Override
+
     public void display() {
         System.out.println("Displaying photo: " + title + " with resolution: " + resolution);
     }
