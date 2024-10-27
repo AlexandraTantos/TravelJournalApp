@@ -88,4 +88,8 @@ public class JournalEntry implements IJournalEntry {
                 imagePath.equals(that.imagePath) &&
                 userId == that.userId;
     }
+    public void setVisibility(boolean isPublic) {
+       this.isPublic=isPublic;
+    }
+
 }
