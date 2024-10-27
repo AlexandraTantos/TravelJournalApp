@@ -70,8 +70,7 @@ public class JournalEntry implements IJournalEntry {
                 ", isPublic=" + isPublic +
                 ", cost=" + cost +
                 ", imagePath='" + imagePath + '\'' +
-                ", userId=" + userId +
-                '}';
+                ", userId=" + userId ;
     }
 
     @Override
@@ -90,6 +89,21 @@ public class JournalEntry implements IJournalEntry {
     }
     public void setVisibility(boolean isPublic) {
        this.isPublic=isPublic;
+    }
+    public static class EventEntry extends JournalEntry{
+        private String eventDate;
+        public EventEntry(int id, String title, String content, Location location, boolean isPublic, double cost, String imagePath, int userId,String eventDate){
+            super(id,title,content,location,isPublic,cost,imagePath,userId);
+            this.eventDate=eventDate;
+        }
+        public String getEventDate(){
+            return eventDate;
+        }
+        @Override
+        public String toString(){
+            return super.toString()+", eventDate="+eventDate+" }";
+        }
+
     }
 
 }
