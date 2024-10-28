@@ -1,11 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.MainController">
-    <Label text="Welcome to the Travel Journal" />
-    <Button fx:id="addEntryButton" text="Create New Entry" layoutX="100" layoutY="60" />
-    <Button fx:id="viewEntriesButton" text="View Entries" layoutX="100" layoutY="100" />
-    <Button fx:id="logoutButton" text="Logout" />
-</AnchorPane>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.MainController" stylesheets="@../styles/main.css">
+    <ImageView fx:id="backgroundImageView" fitWidth="1000" fitHeight="750" preserveRatio="true"/>
+
+
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-pref-height: 750;">
+        <StackPane>
+
+            <ImageView fx:id="scrollBackgroundImageView" fitWidth="1000" fitHeight="2000" preserveRatio="false"/>
+
+            <VBox fx:id="mainVBox" spacing="10" alignment="TOP_CENTER" prefWidth="1000">
+                <Text text="Enjoy the journey" styleClass="main-text" />
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="toggleMenuButton" text="Menu" styleClass="button" />
+                    <Button fx:id="addExperienceButton" text="Add Experience" styleClass="button" />
+                    <Button fx:id="logoutButton" text="Logout" styleClass="button" />
+                </HBox>
+
+                <VBox fx:id="dropdownMenu" spacing="10" visible="false" managed="false">
+                    <Text text="Select a country:"/>
+                    <ChoiceBox fx:id="experienceChoiceBox" />
+                </VBox>
+
+                <VBox fx:id="coloredBoxesContainer" spacing="20" alignment="CENTER">
+                    <Text text="See experiences from:" styleClass="usual-text" />
+
+
+                    <StackPane fx:id="box1" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView1" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box2" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView2" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box3" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView3" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box4" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView4" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box5" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView5" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box6" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView6" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box7" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView7" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+
+                    <StackPane fx:id="box8" alignment="CENTER">
+                        <Rectangle width="800" height="200" fill="#502a2d" />
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ImageView fx:id="imageView8" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                        </HBox>
+                    </StackPane>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

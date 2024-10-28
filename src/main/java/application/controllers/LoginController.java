@@ -64,7 +64,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main-view.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) usernameField.getScene().getWindow();
-                stage.setScene(new Scene(root, 800, 800));
+                stage.setScene(new Scene(root, 1000, 750));
                 stage.setTitle("Travel Journal - Main Page");
                 usernameField.clear();
                 passwordField.clear();
