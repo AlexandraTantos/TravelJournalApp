@@ -10,6 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 
 import java.util.Objects;
 import java.util.Optional;
@@ -50,12 +56,27 @@ public class MainController {
     private ImageView scrollBackgroundImageView;
 
     @FXML
+    private Label box1Label;
+
+    @FXML
     private void initialize() {
         loadBackgroundImage();
         loadScrollBackgroundImage();
         populateExperienceChoiceBox();
         setupButtonActions();
         loadImages();
+        setupLabels();
+        setupLabelHandlers();
+    }
+
+    private void setupLabels() {
+        box1Label.setText("Visiting Italy");
+
+    }
+
+    private void setupLabelHandlers() {
+        box1Label.setOnMouseClicked(event -> showExperienceDetails("Experience 1", "Details about Experience 1..."));
+
     }
 
     private void loadBackgroundImage() {
@@ -147,5 +168,26 @@ public class MainController {
         } catch (Exception e) {
             showAlert("Error", "One or more images could not be loaded.");
         }
+
+
     }
+
+    private void showExperienceDetails(String title, String message) {
+        Stage newWindow = new Stage();
+
+        newWindow.initModality(Modality.APPLICATION_MODAL);
+        newWindow.setTitle(title);
+
+        StackPane layout = new StackPane();
+
+        Label messageLabel = new Label(message);
+        layout.getChildren().add(messageLabel);
+
+        Scene scene = new Scene(layout, 300, 200);
+        newWindow.setScene(scene);
+
+        newWindow.showAndWait();
+    }
+
+
 }

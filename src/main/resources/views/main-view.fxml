@@ -10,6 +10,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.MainController" stylesheets="@../styles/main.css">
     <ImageView fx:id="backgroundImageView" fitWidth="1000" fitHeight="750" preserveRatio="true"/>
@@ -42,6 +43,7 @@
                         <Rectangle width="800" height="200" fill="#502a2d" />
                         <HBox spacing="10" alignment="CENTER_LEFT">
                             <ImageView fx:id="imageView1" fitWidth="180" fitHeight="180" preserveRatio="true" />
+                            <Label fx:id="box1Label" text="Experience 1" textFill="white" style="-fx-font-size: 20;" alignment="CENTER" />
                         </HBox>
                     </StackPane>
 
