@@ -60,6 +60,22 @@ public class JournalEntryRepository {
         return entries;
     }
 
+    public List<String> getCountries() {
+        List<String> countries = new ArrayList<>();
+        String sql = "SELECT DISTINCT name FROM countries";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                countries.add(resultSet.getString("name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return countries;
+    }
+
     public void removeEntry(JournalEntry entry) {
         String sql = "DELETE FROM journal_entries WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
