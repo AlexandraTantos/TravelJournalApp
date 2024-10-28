@@ -21,6 +21,12 @@
     -fx-background-radius: 5;
 }
 
+label {
+
+
+
+}
+
 .colored-box {
     -fx-fill: #502a2d;
     width: 800px;
