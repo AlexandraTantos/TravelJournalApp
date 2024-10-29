@@ -8,11 +8,21 @@ public class Location implements ILocation {
     private int id;
     private String country;
     private String city;
+    private int countryId;
 
-    public Location(int id, String country, String city) {
+    public Location(int id, String country, String city, int countryId) {
         this.id = id;
         this.country = country;
         this.city = city;
+        this.countryId = countryId;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
     }
 
     public Location(int id) {

@@ -3,15 +3,21 @@ package application.controllers;
 import database.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.User;
 import repositories.JournalEntryRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,7 +52,6 @@ public class MainController {
     private ImageView imageView3;
     @FXML
     private ImageView imageView4;
-
     @FXML
     private Text text1;
 
@@ -59,9 +64,19 @@ public class MainController {
     private Rectangle box3Rectangle;
     @FXML
     private Rectangle box4Rectangle;
-
+    @FXML
+    private Button myJournalButton;
     @FXML
     private ImageView scrollBackgroundImageView;
+    private User user;
+
+    public void setUser(User user) {
+        if(user != null) {this.user = user;}
+    }
+
+    public User getUser() {
+        return user;
+    }
 
     @FXML
     private VBox scrollableContainer;
@@ -151,6 +166,13 @@ public class MainController {
         toggleMenuButton.setOnAction(e -> toggleDropdownMenu());
         addExperienceButton.setOnAction(e -> handleAddExperience());
         logoutButton.setOnAction(e -> handleLogout());
+        myJournalButton.setOnAction(e -> openMyJournal());
+
+        experienceComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                handleExperienceInfo(newValue);
+            }
+        });
     }
 
     private void toggleDropdownMenu() {
@@ -176,6 +198,10 @@ public class MainController {
         });
     }
 
+    private void handleExperienceInfo(String experienceName) {
+        showAlert("Information: " + experienceName, "Information about " + experienceName + ".");
+    }
+
     private void handleLogout() {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.close();
@@ -189,12 +215,30 @@ public class MainController {
         alert.showAndWait();
     }
 
+    private void openMyJournal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/my-journal.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 1000, 750));
+            stage.setTitle("My Journal");
+            MyJournalController controller = loader.getController();
+            controller.setUser(user);
+            controller.loadJournalEntries();
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Error", "Could not open My Journal.\n" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private void loadImages() {
         try {
             imageView1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Italy.jpg"))));
             imageView2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Turkey.jpg"))));
             imageView3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Japan.jpg"))));
             imageView4.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Mexico.jpg"))));
+            // Load additional images as needed
         } catch (Exception e) {
             showAlert("Error", "One or more images could not be loaded.");
         }

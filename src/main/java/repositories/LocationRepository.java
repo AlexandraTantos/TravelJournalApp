@@ -20,7 +20,8 @@ public class LocationRepository {
                     return new Location(
                             resultSet.getInt("id"),
                             resultSet.getString("country"),
-                            resultSet.getString("city")
+                            resultSet.getString("city"),
+                            resultSet.getInt("countryId")
                     );
                 }
             }

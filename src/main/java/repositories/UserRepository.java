@@ -12,37 +12,26 @@ public class UserRepository {
         connection = DatabaseConnection.getConnection();
     }
 
-    public boolean isUserValid(String username, String password) {
+    public User getUser(String username, String password) {
         String query = "SELECT * FROM User WHERE username = ? AND password = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
-    public User getUserByUsername(String username) {
-        String query = "SELECT * FROM User WHERE username = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String userUsername = resultSet.getString("username");
-                String userPassword = resultSet.getString("password");
-                return new User(userUsername, userPassword);
+                int id = resultSet.getInt("id");
+                String retrievedUsername = resultSet.getString("username");
+                String retrievedPassword = resultSet.getString("password");
+
+                return new User(id, retrievedUsername, retrievedPassword);
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
-    }
-
-    public boolean verifyLogin(String username, String password) {
-        return isUserValid(username, password);
     }
 
     public boolean isUserExists(String username) {

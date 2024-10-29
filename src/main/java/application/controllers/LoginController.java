@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import models.User;
 import repositories.UserRepository;
 
 import java.io.IOException;
@@ -57,8 +58,9 @@ public class LoginController {
             return;
         }
 
-        if (userRepository.isUserValid(username, password)) {
-            showAlert("Login successful!", "Welcome, " + username);
+        User user = userRepository.getUser(username,password);
+        if (user != null) {
+            showAlert("Login successful!", "Welcome, " + user.getUsername());
 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main-view.fxml"));
@@ -66,6 +68,9 @@ public class LoginController {
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 stage.setScene(new Scene(root, 1000, 750));
                 stage.setTitle("Travel Journal - Main Page");
+                MainController controller = loader.getController();
+                controller.setUser(user);
+
                 usernameField.clear();
                 passwordField.clear();
             } catch (IOException e) {

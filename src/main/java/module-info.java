@@ -15,4 +15,5 @@ module com.cityguideapp.traveljournal {
     opens application.controllers to javafx.fxml;
     exports application;
     exports application.controllers;
+
 }

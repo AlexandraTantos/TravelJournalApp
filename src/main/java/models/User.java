@@ -5,16 +5,22 @@ import models.Interfaces.IUser;
 import java.util.Objects;
 
 public class User implements IUser {
+    private int id;
     private String username;
     private String password;
 
-    public User(String username, String password) {
+    public User(int id,String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public User(String username) {
-        this.username = username;
+    public User() {
+
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
