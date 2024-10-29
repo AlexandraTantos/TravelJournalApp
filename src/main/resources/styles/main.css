@@ -21,9 +21,9 @@
     -fx-background-radius: 5;
 }
 
-label {
-
-
+.dimension {
+    width: 800px;
+    height: 200px;
 
 }
 
@@ -40,7 +40,7 @@ label {
 
 .scroll-pane {
     -fx-background-color: transparent;
-    -fx-background-image: url("images/Background.jpg");
+    -fx-background-image: url("/images/Background.jpg");
     -fx-background-size: cover;
     -fx-background-position: center;
 }

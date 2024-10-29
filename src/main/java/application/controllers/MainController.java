@@ -3,13 +3,12 @@ package application.controllers;
 import database.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repositories.JournalEntryRepository;
 
@@ -26,13 +25,19 @@ public class MainController {
     @FXML
     private Button logoutButton;
     @FXML
-    private ChoiceBox<String> experienceChoiceBox;
+    private ComboBox<String> experienceComboBox;
     @FXML
     private VBox dropdownMenu;
-    @FXML
-    private ImageView backgroundImageView;
+
     @FXML
     private Label box1Label;
+    @FXML
+    private Label box2Label;
+    @FXML
+    private Label box3Label;
+    @FXML
+    private Label box4Label;
+
     @FXML
     private ImageView imageView1;
     @FXML
@@ -41,53 +46,84 @@ public class MainController {
     private ImageView imageView3;
     @FXML
     private ImageView imageView4;
+
     @FXML
-    private ImageView imageView5;
+    private Text text1;
+
+
     @FXML
-    private ImageView imageView6;
+    private Rectangle box1Rectangle;
     @FXML
-    private ImageView imageView7;
+    private Rectangle box2Rectangle;
     @FXML
-    private ImageView imageView8;
+    private Rectangle box3Rectangle;
+    @FXML
+    private Rectangle box4Rectangle;
 
     @FXML
     private ImageView scrollBackgroundImageView;
 
     @FXML
+    private VBox scrollableContainer;
+    @FXML
+    private Text experienceDetailsText;
+
+    @FXML
     private void initialize() {
-        loadBackgroundImage();
         loadScrollBackgroundImage();
-        populateExperienceChoiceBox();
+        populateExperienceComboBox();
         setupButtonActions();
         loadImages();
         setupLabels();
-        setupLabelHandlers();
-    }
-    private void setupLabels() {
-        box1Label.setText("Visiting Italy");
-    }
-    private void setupLabelHandlers() {
-        box1Label.setOnMouseClicked(event -> showExperienceDetails("Experience 1", "Details about Experience 1..."));
-    }
-    private void showExperienceDetails(String title, String message) {
-        Stage newWindow = new Stage();
-        newWindow.initModality(Modality.APPLICATION_MODAL);
-        newWindow.setTitle(title);
-        StackPane layout = new StackPane();
-        Label messageLabel = new Label(message);
-        layout.getChildren().add(messageLabel);
-        Scene scene = new Scene(layout, 300, 200);
-        newWindow.setScene(scene);
-        newWindow.showAndWait();
+
+        scrollableContainer.setVisible(false);
+        scrollableContainer.setManaged(false);
     }
 
-    private void loadBackgroundImage() {
-        try {
-            Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Background.jpg")));
-            backgroundImageView.setImage(backgroundImage);
-        } catch (Exception e) {
-            showAlert("Error", "The background image could not be loaded.");
+    private void setupLabels() {
+        box1Label.setOnMouseClicked(event -> handleCountrySelection(box1Label.getText()));
+        box2Label.setOnMouseClicked(event -> handleCountrySelection(box2Label.getText()));
+        box3Label.setOnMouseClicked(event -> handleCountrySelection(box3Label.getText()));
+        box4Label.setOnMouseClicked(event -> handleCountrySelection(box4Label.getText()));
+    }
+
+    private void handleCountrySelection(String countryName) {
+        clearExperienceBoxes();
+        showAlert("Selected Country", "You selected: " + countryName);
+        displayExperienceDetails(countryName);
+
+        if (experienceDetailsText != null) {
+            experienceDetailsText.setText("Details about " + countryName + " will go here.");
+            scrollableContainer.setVisible(true);
+            scrollableContainer.setManaged(true);
         }
+    }
+
+    private void displayExperienceDetails(String countryName) {
+        if (experienceDetailsText != null) {
+            experienceDetailsText.setText("Details about your experience in " + countryName);
+        }
+    }
+
+    private void clearExperienceBoxes() {
+        box1Label.setVisible(false);
+        box2Label.setVisible(false);
+        box3Label.setVisible(false);
+        box4Label.setVisible(false);
+
+        imageView1.setVisible(false);
+        imageView2.setVisible(false);
+        imageView3.setVisible(false);
+        imageView4.setVisible(false);
+
+        box1Rectangle.setVisible(false);
+        box2Rectangle.setVisible(false);
+        box3Rectangle.setVisible(false);
+        box4Rectangle.setVisible(false);
+        text1.setVisible(false);
+
+        scrollableContainer.setVisible(false);
+        scrollableContainer.setManaged(false);
     }
 
     private void loadScrollBackgroundImage() {
@@ -99,22 +135,22 @@ public class MainController {
         }
     }
 
-    private void populateExperienceChoiceBox() {
+    private void populateExperienceComboBox() {
         JournalEntryRepository journalEntryRepository = new JournalEntryRepository(DatabaseConnection.getConnection());
         List<String> countries = journalEntryRepository.getCountries();
-        experienceChoiceBox.setItems(FXCollections.observableArrayList(countries));
+        experienceComboBox.setItems(FXCollections.observableArrayList(countries));
+
+        experienceComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue != null) {
+                handleCountrySelection(newValue);
+            }
+        });
     }
 
     private void setupButtonActions() {
         toggleMenuButton.setOnAction(e -> toggleDropdownMenu());
         addExperienceButton.setOnAction(e -> handleAddExperience());
         logoutButton.setOnAction(e -> handleLogout());
-
-        experienceChoiceBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            if (newValue != null) {
-                handleExperienceInfo(newValue);
-            }
-        });
     }
 
     private void toggleDropdownMenu() {
@@ -131,17 +167,13 @@ public class MainController {
 
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> {
-            if (!name.trim().isEmpty() && !experienceChoiceBox.getItems().contains(name)) {
-                experienceChoiceBox.getItems().add(name);
+            if (!name.trim().isEmpty() && !experienceComboBox.getItems().contains(name)) {
+                experienceComboBox.getItems().add(name);
                 showAlert("Success", "The experience \"" + name + "\" has been added.");
             } else {
                 showAlert("Error", "The experience cannot be empty.");
             }
         });
-    }
-
-    private void handleExperienceInfo(String experienceName) {
-        showAlert("Information" + experienceName, "Information about " + experienceName + ".");
     }
 
     private void handleLogout() {
@@ -163,10 +195,6 @@ public class MainController {
             imageView2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Turkey.jpg"))));
             imageView3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Japan.jpg"))));
             imageView4.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Mexico.jpg"))));
-            //imageView5.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image5.jpg"))));
-            //imageView6.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image6.jpg"))));
-            //imageView7.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image7.jpg"))));
-            //imageView8.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/image8.jpg"))));
         } catch (Exception e) {
             showAlert("Error", "One or more images could not be loaded.");
         }
