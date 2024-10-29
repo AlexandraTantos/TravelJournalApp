@@ -1,16 +1,19 @@
 package application.controllers;
 
+import database.DatabaseConnection;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import repositories.JournalEntryRepository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,7 +31,8 @@ public class MainController {
     private VBox dropdownMenu;
     @FXML
     private ImageView backgroundImageView;
-
+    @FXML
+    private Label box1Label;
     @FXML
     private ImageView imageView1;
     @FXML
@@ -56,6 +60,25 @@ public class MainController {
         populateExperienceChoiceBox();
         setupButtonActions();
         loadImages();
+        setupLabels();
+        setupLabelHandlers();
+    }
+    private void setupLabels() {
+        box1Label.setText("Visiting Italy");
+    }
+    private void setupLabelHandlers() {
+        box1Label.setOnMouseClicked(event -> showExperienceDetails("Experience 1", "Details about Experience 1..."));
+    }
+    private void showExperienceDetails(String title, String message) {
+        Stage newWindow = new Stage();
+        newWindow.initModality(Modality.APPLICATION_MODAL);
+        newWindow.setTitle(title);
+        StackPane layout = new StackPane();
+        Label messageLabel = new Label(message);
+        layout.getChildren().add(messageLabel);
+        Scene scene = new Scene(layout, 300, 200);
+        newWindow.setScene(scene);
+        newWindow.showAndWait();
     }
 
     private void loadBackgroundImage() {
@@ -77,9 +100,9 @@ public class MainController {
     }
 
     private void populateExperienceChoiceBox() {
-        experienceChoiceBox.setItems(FXCollections.observableArrayList(
-                "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-        ));
+        JournalEntryRepository journalEntryRepository = new JournalEntryRepository(DatabaseConnection.getConnection());
+        List<String> countries = journalEntryRepository.getCountries();
+        experienceChoiceBox.setItems(FXCollections.observableArrayList(countries));
     }
 
     private void setupButtonActions() {
