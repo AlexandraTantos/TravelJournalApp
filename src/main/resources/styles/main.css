@@ -15,7 +15,7 @@
 .button {
     -fx-font-size: 14px;
     -fx-padding: 10px 15px;
-    -fx-background-color: #007bff;
+    -fx-background-color: #65393a;
     -fx-text-fill: white;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
@@ -35,7 +35,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #0056b3;
+    -fx-background-color: #502a2d;
 }
 
 .scroll-pane {

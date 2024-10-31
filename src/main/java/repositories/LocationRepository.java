@@ -29,23 +29,33 @@ public class LocationRepository {
         return null;
     }
 
-    public void addLocation(Location location) throws InvalidLocationException {
-        if (location.getCountry() == null || location.getCountry().isEmpty()) {
-            throw new InvalidLocationException("Country cannot be null or empty.");
-        }
-        if (location.getCity() == null || location.getCity().isEmpty()) {
-            throw new InvalidLocationException("City cannot be null or empty.");
-        }
-
-        String sql = "INSERT INTO locations (country, city) VALUES (?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, location.getCountry());
-            statement.setString(2, location.getCity());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new InvalidLocationException("Database error while adding location: " + e.getMessage());
+    public int getLocationId(String country, String city) throws SQLException {
+        String query = "SELECT id FROM locations WHERE country = ? AND city = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, country);
+            statement.setString(2, city);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            } else {
+                return addLocation(country, city);
+            }
         }
     }
 
+    private int addLocation(String country, String city) throws SQLException {
+        String sql = "INSERT INTO locations (country, city) VALUES (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, country);
+            statement.setString(2, city);
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Failed to add location, no ID obtained.");
+            }
+        }
+    }
 
 }

@@ -26,8 +26,8 @@
                 <HBox spacing="20" alignment="CENTER">
                     <Button fx:id="toggleMenuButton" text="Countries" styleClass="button" />
                     <Button fx:id="addExperienceButton" text="Add Experience" styleClass="button" />
-                    <Button fx:id="logoutButton" text="Logout" styleClass="button" />
                     <Button fx:id="myJournalButton" text="My Journal" styleClass="button" />
+                    <Button fx:id="logoutButton" text="Logout" styleClass="button" />
                 </HBox>
 
                 <VBox fx:id="dropdownMenu" spacing="10" visible="false" managed="false">
