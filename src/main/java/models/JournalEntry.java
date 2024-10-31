@@ -56,7 +56,7 @@ public class JournalEntry implements IJournalEntry {
         return imagePath;
     }
 
-    public int getUserId() { // Add getter for userId
+    public int getUserId() {
         return userId;
     }
 

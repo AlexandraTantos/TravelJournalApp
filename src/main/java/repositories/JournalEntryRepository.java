@@ -31,25 +31,6 @@ public class JournalEntryRepository {
             e.printStackTrace();
         }
     }
-    public List<JournalEntry> getPublicEntries(int userId) {
-        List<JournalEntry> publicEntries = new ArrayList<>();
-        String sql = "SELECT * FROM journal_entries WHERE is_public = 1 AND user_id = ?";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    JournalEntry entry = buildJournalEntry(rs);
-                    publicEntries.add(entry);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return publicEntries;
-    }
 
     public List<JournalEntry> getExperiencesByCountry(String countryName) {
         List<JournalEntry> journalEntries = new ArrayList<>();
@@ -57,7 +38,7 @@ public class JournalEntryRepository {
                 "FROM journal_entries je " +
                 "JOIN locations loc ON je.location_id = loc.id " +
                 "JOIN countries c ON loc.countryId = c.id " +
-                "WHERE c.name = ?";
+                "WHERE c.name = ? AND je.is_public = 1";
 
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, countryName);
@@ -112,21 +93,6 @@ public class JournalEntryRepository {
         return entries;
     }
 
-    public JournalEntry findEntryById(int entryId) throws EntryNotFoundException {
-        String query = "SELECT je.*, l.country, l.city, l.countryId FROM journal_entries je JOIN locations l ON je.location_id = l.id WHERE je.id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, entryId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return buildJournalEntry(resultSet);
-            } else {
-                throw new EntryNotFoundException("Journal entry not found for ID: " + entryId);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new EntryNotFoundException("Error retrieving entry with ID: " + entryId);
-        }
-    }
     public JournalEntry findEntryByTitle(String title) throws EntryNotFoundException {
         String query = "SELECT je.*, l.country, l.city, l.countryId FROM journal_entries je JOIN locations l ON je.location_id = l.id WHERE je.title = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {

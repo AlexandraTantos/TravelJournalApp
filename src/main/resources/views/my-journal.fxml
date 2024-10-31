@@ -10,6 +10,9 @@
         <VBox fx:id="entryContainer" spacing="10" alignment="TOP_CENTER">
 
         </VBox>
-        <Button fx:id="backButton" text="Back" styleClass="btn" />
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="removeEntryButton" text="Remove Entry" styleClass="btn" />
+            <Button fx:id="backButton" text="Back" styleClass="btn" />
+        </HBox>
     </VBox>
 </ScrollPane>

@@ -111,9 +111,11 @@ public class MainController {
         clearExperienceBoxes();
         showAlert("Selected Country", "You selected: " + countryName);
 
+        if (countryName.startsWith("Visiting ")) {
+            countryName = countryName.replace("Visiting ", "");
+        }
 
         scrollableContainer.getChildren().clear();
-
 
         JournalEntryRepository journalEntryRepository = new JournalEntryRepository(DatabaseConnection.getConnection());
         List<JournalEntry> experiences = journalEntryRepository.getExperiencesByCountry(countryName);
@@ -141,34 +143,21 @@ public class MainController {
                 imageView.setPreserveRatio(true);
                 imageView.setSmooth(true);
 
-
                 Label contentLabel = new Label(entry.getContent());
                 contentLabel.setWrapText(true);
                 contentLabel.setStyle("-fx-text-fill: white;");
 
-
                 Label costLabel = new Label("Cost: " + entry.getCost());
                 costLabel.setStyle("-fx-text-fill: white;");
 
-
                 entryBox.getChildren().addAll(titleLabel, imageView, contentLabel, costLabel);
-
-
                 experiencesVBox.getChildren().add(entryBox);
             }
-
 
             scrollableContainer.getChildren().add(experiencesVBox);
             experienceDetailsText.setText("Experiences in " + countryName);
             scrollableContainer.setVisible(true);
             scrollableContainer.setManaged(true);
-        }
-    }
-
-
-    private void displayExperienceDetails(String countryName) {
-        if (experienceDetailsText != null) {
-            experienceDetailsText.setText("Details about your experience in " + countryName);
         }
     }
 

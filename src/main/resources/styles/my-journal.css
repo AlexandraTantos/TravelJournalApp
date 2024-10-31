@@ -6,7 +6,7 @@
     -fx-border-radius: 10px;
 }
 
-#backButton {
+#backButton, #removeEntryButton {
     -fx-min-width: 100px;
     -fx-max-width: 120px;
     -fx-min-height: 35px;
@@ -18,6 +18,6 @@
     -fx-cursor: hand;
 }
 
-#backButton:hover {
+#backButton:hover, #removeEntryButton:hover  {
     -fx-background-color: #502a2d;
 }

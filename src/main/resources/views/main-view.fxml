@@ -12,15 +12,12 @@
 <?import javafx.scene.control.Label?>
 
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.MainController" stylesheets="@../styles/main.css">
-
     <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-pref-height: 750;">
         <StackPane>
             <ImageView fx:id="scrollBackgroundImageView" fitWidth="1000" fitHeight="2000" preserveRatio="false"/>
 
+            <VBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 40;">
 
-            <VBox>
-
-            <VBox fx:id="mainVBox" spacing="20" alignment="TOP_CENTER" prefWidth="1000">
                 <Text text="Enjoy the journey" styleClass="main-text" />
 
                 <HBox spacing="20" alignment="CENTER">
@@ -37,8 +34,8 @@
 
                 <VBox fx:id="scrollableContainer" alignment="CENTER" spacing="30">
                     <ScrollPane fx:id="detailsScrollPane" prefWidth="800" prefHeight="400" style="-fx-background-color: transparent;">
-                        <HBox alignment="CENTER" style="-fx-background-color: transparent;" >
-                            <VBox alignment="BASELINE_CENTER" style="-fx-background-color: #502a2d; -fx-padding: 10; -fx-pref-height: 600; -fx-pref-width: 985">
+                        <HBox alignment="CENTER" style="-fx-background-color: transparent;">
+                            <VBox alignment="BASELINE_CENTER" style="-fx-background-color: #502a2d; -fx-padding: 20; -fx-background-radius: 10; -fx-pref-height: 600; -fx-pref-width: 985;">
                                 <Text text="Experience Details" styleClass="usual-text" fill="white" />
                                 <Text fx:id="experienceDetailsText" text="" styleClass="usual-text" fill="white" />
                             </VBox>
@@ -46,44 +43,42 @@
                     </ScrollPane>
                 </VBox>
 
-
-
                 <VBox fx:id="coloredBoxesContainer" spacing="20" alignment="CENTER">
                     <Text fx:id="text1" text="See experiences from:" styleClass="usual-text" />
 
+                    <!-- StackPanes for Country Boxes -->
                     <StackPane fx:id="box1" alignment="CENTER">
-                        <Rectangle fx:id="box1Rectangle" width="800" height="200" fill="#502a2d" />
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <ImageView fx:id="imageView1" fitWidth="180" fitHeight="180" preserveRatio="true" />
-                            <Label fx:id="box1Label" text="Visiting Italy" textFill="white" style="-fx-font-size: 20;" />
+                        <Rectangle fx:id="box1Rectangle" width="800" height="200" fill="#502a2d" arcWidth="20" arcHeight="20" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);" />
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+                            <ImageView fx:id="imageView1" fitWidth="180" fitHeight="180" preserveRatio="true" style="-fx-background-radius: 10;"/>
+                            <Label fx:id="box1Label" text="Visiting Italy" textFill="white" style="-fx-font-size: 20; -fx-font-weight: bold;" />
                         </HBox>
                     </StackPane>
 
                     <StackPane fx:id="box2" alignment="CENTER">
-                        <Rectangle fx:id="box2Rectangle" width="800" height="200" fill="#502a2d" />
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <ImageView fx:id="imageView2" fitWidth="180" fitHeight="180" preserveRatio="true" />
-                            <Label fx:id="box2Label" text="Visiting Turkey" textFill="white" style="-fx-font-size: 20;" />
+                        <Rectangle fx:id="box2Rectangle" width="800" height="200" fill="#502a2d" arcWidth="20" arcHeight="20" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);" />
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+                            <ImageView fx:id="imageView2" fitWidth="180" fitHeight="180" preserveRatio="true" style="-fx-background-radius: 10;"/>
+                            <Label fx:id="box2Label" text="Visiting Turkey" textFill="white" style="-fx-font-size: 20; -fx-font-weight: bold;" />
                         </HBox>
                     </StackPane>
 
                     <StackPane fx:id="box3" alignment="CENTER">
-                        <Rectangle fx:id="box3Rectangle" width="800" height="200" fill="#502a2d" />
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <ImageView fx:id="imageView3" fitWidth="180" fitHeight="180" preserveRatio="true" />
-                            <Label fx:id="box3Label" text="Visiting Japan" textFill="white" style="-fx-font-size: 20;" />
+                        <Rectangle fx:id="box3Rectangle" width="800" height="200" fill="#502a2d" arcWidth="20" arcHeight="20" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);" />
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+                            <ImageView fx:id="imageView3" fitWidth="180" fitHeight="180" preserveRatio="true" style="-fx-background-radius: 10;"/>
+                            <Label fx:id="box3Label" text="Visiting Japan" textFill="white" style="-fx-font-size: 20; -fx-font-weight: bold;" />
                         </HBox>
                     </StackPane>
 
                     <StackPane fx:id="box4" alignment="CENTER">
-                        <Rectangle fx:id="box4Rectangle" width="800" height="200" fill="#502a2d" />
-                        <HBox spacing="10" alignment="CENTER_LEFT">
-                            <ImageView fx:id="imageView4" fitWidth="180" fitHeight="180" preserveRatio="true" />
-                            <Label fx:id="box4Label" text="Visiting Mexico" textFill="white" style="-fx-font-size: 20;" />
+                        <Rectangle fx:id="box4Rectangle" width="800" height="200" fill="#502a2d" arcWidth="20" arcHeight="20" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);" />
+                        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+                            <ImageView fx:id="imageView4" fitWidth="180" fitHeight="180" preserveRatio="true" style="-fx-background-radius: 10;"/>
+                            <Label fx:id="box4Label" text="Visiting Mexico" textFill="white" style="-fx-font-size: 20; -fx-font-weight: bold;" />
                         </HBox>
                     </StackPane>
                 </VBox>
-            </VBox>
             </VBox>
         </StackPane>
     </ScrollPane>

@@ -6,8 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -17,6 +16,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import models.JournalEntry;
 import models.User;
+import models.exceptions.EntryNotFoundException;
 import repositories.JournalEntryRepository;
 
 import java.io.IOException;
@@ -31,6 +31,8 @@ public class MyJournalController {
     private VBox entryContainer;
     @FXML
     private Button backButton;
+    @FXML
+    private Button removeEntryButton;
 
     private JournalEntryRepository journalEntryRepository;
     private User user;
@@ -61,6 +63,7 @@ public class MyJournalController {
             banner.setImage(image);
         }
         backButton.setOnAction(event -> handleBack());
+        removeEntryButton.setOnAction(event -> removeEntry());
     }
 
     public void loadJournalEntries() {
@@ -115,6 +118,36 @@ public class MyJournalController {
             entryContainer.getChildren().add(entryBox);
         }
     }
+    private void removeEntry() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Remove Entry");
+        dialog.setHeaderText("Remove Journal Entry");
+        dialog.setContentText("Enter the title of the entry you want to delete:");
+
+        dialog.showAndWait().ifPresent(title -> {
+            try {
+                JournalEntry entry = journalEntryRepository.findEntryByTitle(title);
+                if (entry.getUserId() != user.getId()) {
+                    showError("Permission Denied", "You cannot delete this entry.");
+                    return;
+                }
+                Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmDialog.setTitle("Confirm Deletion");
+                confirmDialog.setHeaderText("Are you sure you want to delete this entry?");
+                confirmDialog.setContentText("Entry: " + entry.getTitle());
+
+                confirmDialog.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        journalEntryRepository.removeEntry(entry);
+                        loadJournalEntries();
+                    }
+                });
+            } catch (EntryNotFoundException e) {
+                showError("Entry Not Found", "No entry found with title: " + title);
+            }
+        });
+    }
+
 
     private void handleBack() {
         try {
@@ -128,5 +161,12 @@ public class MyJournalController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
