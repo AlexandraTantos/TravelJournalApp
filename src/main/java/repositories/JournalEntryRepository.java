@@ -18,7 +18,12 @@ public class JournalEntryRepository {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, entry.getTitle());
             statement.setString(2, entry.getContent());
-            statement.setInt(3, entry.getLocation().getId());
+            if (entry.getLocation() != null) {
+                statement.setInt(3, entry.getLocation().getId());
+            } else {
+                statement.setNull(3, java.sql.Types.INTEGER); // Dacă nu există locație
+            }
+
             statement.setDouble(4, entry.getCost());
             statement.setBoolean(5, entry.isPublic());
             statement.setString(6, entry.getImagePath());
@@ -89,7 +94,12 @@ public class JournalEntryRepository {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, entry.getTitle());
             statement.setString(2, entry.getContent());
-            statement.setInt(3, entry.getLocation().getId());
+            if (entry.getLocation() != null) {
+                statement.setInt(3, entry.getLocation().getId());
+            } else {
+                statement.setNull(3, java.sql.Types.INTEGER); // Dacă nu există locație
+            }
+
             statement.setDouble(4, entry.getCost());
             statement.setBoolean(5, entry.isPublic());
             statement.setString(6, entry.getImagePath());
